@@ -12,3 +12,14 @@ interface Person {
 }
 
 const programmer: Person = { name: 'GMZ' } // 必须有name
+
+// TS优势演示
+interface rightTriangle {
+    a: number,
+    b: number
+} // 清晰直观
+
+function calcHypotenuse(rightTriangle: rightTriangle) {
+    // return Math.sqrt(rightTriangle.x ** 2 + rightTriangle.y ** 2) // 写错了提示
+    return Math.sqrt(rightTriangle.a ** 2 + rightTriangle.b ** 2) // 编辑器自动提示 a、b
+}
