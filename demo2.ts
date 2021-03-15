@@ -27,7 +27,7 @@ class Programmer {
 
 const yxmg: Programmer = new Programmer()
 
-// 类型数组
+// 数组
 const hobby: stirng[] = ['game', 'code']
 
 // 函数
