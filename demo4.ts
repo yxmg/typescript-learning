@@ -2,7 +2,7 @@
  *Created by 夜雪暮歌 on 2021/3/15
  **/
 // 函数相关类型注解
-// 1、函数返回值必须注解，才能保证最终返回值符合预期
+// 1、函数返回值注解视情况而定，能推断则可以省略
 function getTotal(num1: number, num2: number): number {
     // return num1 + num2 + '' // 推断出是string，但不符合预期
     return num1 + num2
