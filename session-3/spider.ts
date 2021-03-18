@@ -18,16 +18,16 @@ export interface Analyzer {
 class Spider {
     private filePath = path.resolve(__dirname, `./${dateFormat(new Date(), 'yyyyMMdd_hhmmss')}.json`)
 
-    async getRawHtml() {
+    private async getRawHtml() {
         const result = await superAgent.get(this.url)
         return result.text
     }
 
-    writeFile(fileContent: string) {
+    private writeFile(fileContent: string) {
         fs.writeFileSync(this.filePath, fileContent)
     }
 
-    async initSpiderProcess() {
+    private async initSpiderProcess() {
         const html = await this.getRawHtml()
         const fileContent = this.analyzer.analysis(html, this.filePath)
         this.writeFile(fileContent)
