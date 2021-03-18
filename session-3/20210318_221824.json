@@ -1,0 +1,164 @@
+{
+  "2021-3-18 22:18:25": [
+    {
+      "type": "推荐",
+      "list": [
+        {
+          "title": "首门程序员理财课 Python量化交易系统实战",
+          "difficulty": "入门",
+          "price": "￥258.00",
+          "originPrice": "￥299.00",
+          "signUpCount": "193"
+        },
+        {
+          "title": "前端框架及项目面试 聚焦Vue3/React/Webpack",
+          "difficulty": "中级",
+          "price": "￥399.00",
+          "originPrice": "",
+          "signUpCount": "2319"
+        },
+        {
+          "title": "SpringBoot 在线协同办公小程序开发 全栈式项目实战",
+          "difficulty": "初级",
+          "price": "￥388.00",
+          "originPrice": "",
+          "signUpCount": "444"
+        },
+        {
+          "title": "体系课-Go+Python双语言混合开发 盯紧技术先机 抓紧高薪机遇",
+          "difficulty": "中级",
+          "price": "￥1480.00",
+          "originPrice": "￥1680.00",
+          "signUpCount": "247"
+        },
+        {
+          "title": "Vue3 从入门到实战 进阶式掌握完整知识体系",
+          "difficulty": "中级",
+          "price": "￥348.00",
+          "originPrice": "",
+          "signUpCount": "818"
+        },
+        {
+          "title": "Activiti7工作流开发实战 打造通用型可视化UML工作流系统",
+          "difficulty": "初级",
+          "price": "￥348.00",
+          "originPrice": "",
+          "signUpCount": "387"
+        },
+        {
+          "title": "一天时间迅速准备前端面试 快速构建初级前端知识体系",
+          "difficulty": "初级",
+          "price": "￥299.00",
+          "originPrice": "",
+          "signUpCount": "2618"
+        },
+        {
+          "title": "Kubernetes 入门到进阶实战，系统性掌握 K8s 生产实践",
+          "difficulty": "中级",
+          "price": "￥299.00",
+          "originPrice": "",
+          "signUpCount": "218"
+        }
+      ]
+    },
+    {
+      "type": "前端开发",
+      "list": [
+        {
+          "title": "2021必修  React17+React Hook+TS4 最佳实践，仿 Jira 企业级项目",
+          "difficulty": "高级",
+          "price": "￥368.00",
+          "originPrice": "",
+          "signUpCount": "583"
+        },
+        {
+          "title": "React 17 系统精讲   结合TS打造旅游电商平台",
+          "difficulty": "中级",
+          "price": "￥299.00",
+          "originPrice": "",
+          "signUpCount": "327"
+        },
+        {
+          "title": "Vue3.0(正式版) + TS 仿知乎专栏企业级项目 深度剖析Vue3新特性",
+          "difficulty": "中级",
+          "price": "￥348.00",
+          "originPrice": "",
+          "signUpCount": "1316"
+        },
+        {
+          "title": "为毕业生打造的全栈课 一站解决毕设问题（选题/毕设/论文/答辩）",
+          "difficulty": "入门",
+          "price": "￥266.00",
+          "originPrice": "",
+          "signUpCount": "125"
+        }
+      ]
+    },
+    {
+      "type": "后端开发",
+      "list": [
+        {
+          "title": "C语言系统化精讲  重塑你的编程思想 打造坚实的开发基础",
+          "difficulty": "中级",
+          "price": "￥299.00",
+          "originPrice": "",
+          "signUpCount": "592"
+        },
+        {
+          "title": "协程原理深度剖析 进程线程协程原理一课通",
+          "difficulty": "中级",
+          "price": "￥348.00",
+          "originPrice": "",
+          "signUpCount": "105"
+        },
+        {
+          "title": "Kubernetes 入门到进阶实战，系统性掌握 K8s 生产实践",
+          "difficulty": "中级",
+          "price": "￥299.00",
+          "originPrice": "",
+          "signUpCount": "218"
+        },
+        {
+          "title": "Go微服务入门到容器化实践，落地可观测的微服务电商项目 ",
+          "difficulty": "中级",
+          "price": "￥368.00",
+          "originPrice": "",
+          "signUpCount": "267"
+        }
+      ]
+    },
+    {
+      "type": "精品免费",
+      "list": [
+        {
+          "title": "全方位入门git",
+          "difficulty": "入门",
+          "price": "免费",
+          "originPrice": "",
+          "signUpCount": "9691"
+        },
+        {
+          "title": "Python3 进阶教程 2020全新版",
+          "difficulty": "中级",
+          "price": "免费",
+          "originPrice": "",
+          "signUpCount": "13440"
+        },
+        {
+          "title": "【首发】零基础快速上手HarmonyOS（鸿蒙）开发",
+          "difficulty": "初级",
+          "price": "免费",
+          "originPrice": "",
+          "signUpCount": "6924"
+        },
+        {
+          "title": "人工智能入门：Python实现机器学习",
+          "difficulty": "初级",
+          "price": "免费",
+          "originPrice": "",
+          "signUpCount": "15952"
+        }
+      ]
+    }
+  ]
+}

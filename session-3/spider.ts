@@ -4,81 +4,47 @@
  * @Date: 2021/3/17
  */
 import fs from 'fs'
-import path from 'path'
 import superAgent from 'superagent'
-import cheerio from 'cheerio'
+import path from 'path'
+import ImoocAnalyzer from "./ImoocAnalyzer"
+import JuejinAnalyzer from './JuejinAnalyzer'
+import {dateFormat} from './utils'
 
-interface Course {
-    title: string,
-    difficulty: string,
-    signUpCount: string,
-    price: string,
-    originPrice: string
+export interface Analyzer {
+    analysis: (html: string, filePath?: string) => string
 }
 
-interface CourseResult {
-    type: string,
-    list: Course[]
-}
-
-interface SpiderData {
-    [propName: string]: CourseResult[]
-}
 
 class Spider {
-    private spiderData: SpiderData = {}
-    private DATA_PATH = path.resolve(__dirname, './spider.json')
-    private URL = 'https://www.imooc.com/'
-
-    getCourseInfo(html: string) {
-        const $ = cheerio.load(html);
-        const typeElList = $('.new-course .list')
-        const result: CourseResult[] = []
-        typeElList.each((index, type) => {
-            const courseElList = $(type).find('.item')
-            const courseList: Course[] = []
-            courseElList.each((index, course) => {
-                const title = $(course).find('.title').eq(0).text()
-                const [difficulty, signUpText] =
-                    $(course).find('.difficulty').eq(0).text().split(' · ')
-                const price = $(course).find('.price').eq(0).text()
-                const originPrice = $(course).find('.origin-price').eq(0).text()
-                const signUpCount = signUpText.replace(/[^\d]+/g, '')
-                courseList.push({ title, difficulty, price, originPrice, signUpCount })
-            })
-            result.push({ type: $(type).data('type'), list: courseList })
-        })
-        return result
-    }
+    private filePath = path.resolve(__dirname, `./${dateFormat(new Date(), 'yyyyMMdd_hhmmss')}.json`)
 
     async getRawHtml() {
-        const result = await superAgent.get(this.URL)
+        const result = await superAgent.get(this.url)
         return result.text
     }
 
-    generateFileContent(courseInfo: CourseResult[]) {
-        if (fs.existsSync(this.DATA_PATH)) {
-            this.spiderData = JSON.parse(fs.readFileSync(this.DATA_PATH, 'utf-8'))
-        }
-        this.spiderData[new Date().toLocaleString()] = courseInfo
-        return this.spiderData
-    }
-
-    writeFile(spiderData: SpiderData) {
-        fs.writeFileSync(this.DATA_PATH, JSON.stringify(spiderData, null, 2))
+    writeFile(fileContent: string) {
+        fs.writeFileSync(this.filePath, fileContent)
     }
 
     async initSpiderProcess() {
         const html = await this.getRawHtml()
-        const courseInfo = this.getCourseInfo(html)
-        const spiderData = this.generateFileContent(courseInfo)
-        this.writeFile(spiderData)
+        const fileContent = this.analyzer.analysis(html, this.filePath)
+        this.writeFile(fileContent)
     }
 
-    constructor() {
+    constructor(private url: string, private analyzer: Analyzer, filePath?: string) {
+        if (filePath) {
+            this.filePath = filePath
+        }
         this.initSpiderProcess()
     }
 }
 
+const filePath = path.resolve(__dirname, './spider.json')
+const url = 'https://www.imooc.com/'
+const analyzer = new ImoocAnalyzer()
+new Spider(url, analyzer, filePath)
 
-const moocSpider = new Spider()
+// 动态网页需要执行JS或爬取接口，分析接口数据
+new Spider('https://juejin.cn/', new JuejinAnalyzer())
