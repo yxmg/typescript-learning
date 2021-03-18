@@ -3,6 +3,8 @@
  * @Author: 管铭钊
  * @Date: 2021/3/17
  */
+import fs from 'fs'
+import path from 'path'
 import superAgent from 'superagent'
 import cheerio from 'cheerio'
 
@@ -19,9 +21,16 @@ interface CourseResult {
     list: Course[]
 }
 
+interface SpiderData {
+    [propName: string]: CourseResult[]
+}
+
 class Spider {
-    private async getCourseInfo() {
-        const { text: html } = await this.getRawHtml()
+    private spiderData: SpiderData = {}
+    private DATA_PATH = path.resolve(__dirname, './spider.json')
+    private URL = 'https://www.imooc.com/'
+
+    getCourseInfo(html: string) {
         const $ = cheerio.load(html);
         const typeElList = $('.new-course .list')
         const result: CourseResult[] = []
@@ -39,17 +48,37 @@ class Spider {
             })
             result.push({ type: $(type).data('type'), list: courseList })
         })
-        console.log(JSON.stringify(result), "JSON.stringify(result)")
+        return result
     }
 
-    private getRawHtml() {
-        return superAgent.get(url)
+    async getRawHtml() {
+        const result = await superAgent.get(this.URL)
+        return result.text
     }
 
-    constructor(url: string) {
-        this.getCourseInfo()
+    generateFileContent(courseInfo: CourseResult[]) {
+        if (fs.existsSync(this.DATA_PATH)) {
+            this.spiderData = JSON.parse(fs.readFileSync(this.DATA_PATH, 'utf-8'))
+        }
+        this.spiderData[new Date().toLocaleString()] = courseInfo
+        return this.spiderData
+    }
+
+    writeFile(spiderData: SpiderData) {
+        fs.writeFileSync(this.DATA_PATH, JSON.stringify(spiderData, null, 2))
+    }
+
+    async initSpiderProcess() {
+        const html = await this.getRawHtml()
+        const courseInfo = this.getCourseInfo(html)
+        const spiderData = this.generateFileContent(courseInfo)
+        this.writeFile(spiderData)
+    }
+
+    constructor() {
+        this.initSpiderProcess()
     }
 }
 
-const url = 'https://www.imooc.com/'
-const moocSpider = new Spider(url)
+
+const moocSpider = new Spider()
