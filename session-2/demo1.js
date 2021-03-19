@@ -1,3 +1,4 @@
+"use strict";
 /**
  *Created by 夜雪暮歌 on 2021/3/15
  **/
@@ -11,3 +12,5 @@ function calcHypotenuse(rightTriangle) {
     return Math.sqrt(Math.pow(rightTriangle.a, 2) + Math.pow(rightTriangle.b, 2)); // 编辑器自动提示 a、b
 }
 // TS环境搭建
+var greeting = 'Hello World';
+console.log(greeting, "greeting"); // ts-node demo1.ts执行 or tsc demo1.ts && node demo1.js

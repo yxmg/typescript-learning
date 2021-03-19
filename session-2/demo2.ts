@@ -28,7 +28,7 @@ class Programmer {
 const yxmg: Programmer = new Programmer()
 
 // 数组
-const hobby: stirng[] = ['game', 'code']
+const hobby: string[] = ['game', 'code']
 
 // 函数
 const coding: () => string = () => {
