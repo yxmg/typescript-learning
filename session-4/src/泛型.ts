@@ -15,6 +15,7 @@ const join = <T>(a: T, b: T) => {
 }
 join<string>('1', '2')
 join<number>(1, 2)
+join<number[]>([1], [2])
 // 也可以让TS自行推断
 join('1', '2')
 join(1, 2)
@@ -31,3 +32,28 @@ const join2 = <T>(arr: Array<T>) => {
 join1('1', 1)
 join2([1, '2'])
 
+// 用extends限定泛型
+
+// 要求a，b必须同类型且为字符串或数字
+const join3 = <T extends (string | number)>(a: T, b: T) => {
+    return `${a}${b}`
+}
+// join3([1], [2]) // wrong!
+join3(1, 1)
+
+interface A {
+    name: string
+}
+
+// 类中的泛型
+class Test<T extends A> {
+    constructor(private obj: T) {
+    }
+
+    getName() {
+        return this.obj.name
+    }
+}
+
+const t = new Test({ name: 'yxmg' })
+console.log(t.getName(), "t.getName()")
