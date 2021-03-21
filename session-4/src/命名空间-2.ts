@@ -1,16 +1,8 @@
 /**
  *Created by 夜雪暮歌 on 2021/3/21
  **/
-namespace HomePage {
-    export class Page {
-        constructor() {
-            new Header()
-            new Content()
-            new Footer()
-        }
-    }
-
-    class Header {
+namespace Components {
+    export class Header {
         constructor() {
             const ele = document.createElement('div')
             ele.innerText = 'This is a Header'
@@ -18,7 +10,7 @@ namespace HomePage {
         }
     }
 
-    class Content {
+    export class Content {
         constructor() {
             const ele = document.createElement('div')
             ele.innerText = 'This is a Content'
@@ -26,7 +18,7 @@ namespace HomePage {
         }
     }
 
-    class Footer {
+    export class Footer {
         constructor() {
             const ele = document.createElement('div')
             ele.innerText = 'This is a Footer'
@@ -34,5 +26,3 @@ namespace HomePage {
         }
     }
 }
-
-
