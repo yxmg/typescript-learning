@@ -9,6 +9,7 @@
     "spider:compile": "tsc -w -p ./session-3 --outDir ./session-3/dist/",
     "spider:autorun": "nodemon --watch ./session-3 -e ts node ./session-3/dist/spider.js",
     "namespace": "tsc --outFile ./session-4/build/page.js ./session-4/src/命名空间-1.ts ./session-4/src/命名空间-2.ts",
+    "namespace:require": "tsc --outFile ./session-4/build/page-require.js ./session-4/src/命名空间-require-1.ts  --module amd",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

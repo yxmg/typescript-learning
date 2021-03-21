@@ -3,11 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>测试namespace</title>
-    <script src="../build/page.js"></script>
+    <!--    <script src="../build/page.js"></script>-->
+    <script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.js"></script>
+    <script src="../build/page-require.js"></script>
 </head>
 <body>
 <script>
-new HomePage.Page()
+// 全局注册
+// new HomePage.Page()
+
+// 模块化-requirejs写法
+require(['命名空间-require-1'], (page) => {
+    new page.default()
+})
 </script>
 </body>
 </html>
