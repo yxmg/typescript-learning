@@ -21,6 +21,7 @@ Typescript learning note
 + [spider.ts](./session-3/spider.ts): 入口文件
 + [ImoocAnalyzer](./session-3/ImoocAnalyzer.ts): 慕课网解析
 + [JuejinAnalyzer](./session-3/JuejinAnalyzer.ts): 掘金解析
++ [SmzdmAnalyzer](./session-3/SmzdmAnalyzer.ts): 什么值得买解析
 
 ### Session-4
 
