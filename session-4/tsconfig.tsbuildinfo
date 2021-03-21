@@ -156,7 +156,7 @@
         "signature": "506b80b9951c9381dc5f11897b31fca5e2a65731d96ddefa19687fbc26b23c6e",
         "affectsGlobalScope": true
       },
-      "./src/demo1.ts": {
+      "./src/定义、优势、环境.ts": {
         "version": "b6a9e8e5b0dcdde96e223fdf12d47337e29ab2fc81e9d1d852db144bc1115162",
         "signature": "cd6ff6c22242a2540b069da162d380ce15d482a0b111fb28abfde06d90010bef",
         "affectsGlobalScope": true
@@ -993,10 +993,10 @@
       "../node_modules/typescript/lib/lib.scripthost.d.ts",
       "../node_modules/typescript/lib/lib.webworker.importscripts.d.ts",
       [
-        "./src/demo1.ts",
+        "./src/定义、优势、环境.ts",
         [
           {
-            "file": "./src/demo1.ts",
+            "file": "./src/定义、优势、环境.ts",
             "start": 349,
             "length": 7,
             "messageText": "Parameter 'testAny' implicitly has an 'any' type.",
@@ -1004,7 +1004,7 @@
             "code": 7006
           },
           {
-            "file": "./src/demo1.ts",
+            "file": "./src/定义、优势、环境.ts",
             "start": 453,
             "length": 5,
             "code": 2322,
@@ -1012,7 +1012,7 @@
             "messageText": "Type 'null' is not assignable to type 'object'."
           },
           {
-            "file": "./src/demo1.ts",
+            "file": "./src/定义、优势、环境.ts",
             "start": 480,
             "length": 5,
             "code": 2322,
