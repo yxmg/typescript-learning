@@ -10,6 +10,7 @@
     "spider:autorun": "nodemon --watch ./session-3 -e ts node ./session-3/dist/spider.js",
     "namespace": "tsc --outFile ./session-4/build/page.js ./session-4/src/命名空间-1.ts ./session-4/src/命名空间-2.ts",
     "namespace:require": "tsc --outFile ./session-4/build/page-require.js ./session-4/src/命名空间-require-1.ts  --module amd",
+    "namespace:parcel": "yarn parcel session-4/src/test-namespace.html",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -30,6 +31,7 @@
     "cz-conventional-changelog": "3.3.0",
     "cz-customizable": "6.3.0",
     "nodemon": "^2.0.7",
+    "parcel": "^2.0.0-beta.2",
     "ts-node": "^9.1.1",
     "typescript": "^4.2.3"
   },

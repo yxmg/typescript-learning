@@ -10,3 +10,5 @@ export default class Page {
         new Footer()
     }
 }
+// parcel打包
+new Page()

@@ -3,9 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>测试namespace</title>
-    <!--    <script src="../build/page.js"></script>-->
-    <script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.js"></script>
-    <script src="../build/page-require.js"></script>
+    <!-- 全局注册 -->
+    <!--<script src="../build/page.js"></script>-->
+    <!-- requirejs引入 -->
+    <!--<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.js"></script>-->
+    <!--<script src="../build/page-require.js"></script>-->
+    <!-- parcel处理 -->
+
 </head>
 <body>
 <script>
@@ -13,9 +17,11 @@
 // new HomePage.Page()
 
 // 模块化-requirejs写法
-require(['命名空间-require-1'], (page) => {
-    new page.default()
-})
+// require(['命名空间-require-1'], (page) => {
+//     new page.default()
+// })
 </script>
+<!-- parcel打包 -->
+<script src="./命名空间-require-1.ts"></script>
 </body>
 </html>
