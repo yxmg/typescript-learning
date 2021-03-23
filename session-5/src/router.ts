@@ -1,20 +1,30 @@
 /**
  *Created by 夜雪暮歌 on 2021/3/22
  **/
-import {Router, Request, Response} from 'express'
-import SmzdmAnalyzer from "./SmzdmAnalyzer";
-import Spider from './spider'
 import fs from 'fs'
 import path from 'path'
-
-const DATA_PATH = path.resolve(__dirname, '../data/smzdm.json')
+import {Router, Request, Response, NextFunction} from 'express'
+import SmzdmAnalyzer from "./SmzdmAnalyzer";
+import Spider from './spider'
+import {getJsonResponse} from "./utils";
 
 const router = Router()
+const DATA_PATH = path.resolve(__dirname, '../data/smzdm.json')
 
 // 只能重写外部定义的类型属性，不能新增(这里body已存在)
-interface RequestWithBody extends Request {
+interface bodyRequest extends Request {
     body: {
         [key: string]: string | undefined
+    }
+}
+
+// 鉴权中间件
+const checkLogin = (req: Request, res: Response, next: NextFunction) => {
+    const isLogin = req.session ? req.session.login : false
+    if (isLogin) {
+        next()
+    } else {
+        res.json(getJsonResponse(false, '未授权，请先登录'))
     }
 }
 
@@ -27,7 +37,7 @@ router.get('/', (req: Request, res: Response) => {
     }
 })
 
-router.post('/login', (req: RequestWithBody, res: Response) => {
+router.post('/login', (req: bodyRequest, res: Response) => {
     const isLogin = req.session ? req.session.login : false
     if (isLogin) {
         res.redirect('/')
@@ -35,9 +45,9 @@ router.post('/login', (req: RequestWithBody, res: Response) => {
         const password = req.body.password
         if (password === '123' && req.session) {
             req.session.login = true
-            res.redirect('/')
+            res.json(getJsonResponse(true))
         } else {
-            res.send(`<html><body><h1>Wrong password by ${req.author}!</h1><a href="/">重新登录</a></body></html>`)
+            res.json(getJsonResponse(false, `Wrong password by ${req.author}`))
         }
     }
 
@@ -47,30 +57,20 @@ router.get('/logout', (req: Request, res: Response) => {
     if (req.session) {
         req.session.login = false
     }
-    res.redirect('/')
+    res.json(getJsonResponse(true))
 })
 
-router.get('/spider', (req: Request, res: Response) => {
-    const isLogin = req.session ? req.session.login : false
-    if (isLogin) {
-        new Spider('https://www.smzdm.com/', new SmzdmAnalyzer(), DATA_PATH)
-        res.send(`<html><body><h1>${new Date().toLocaleString()}，爬取成功！</h1><a href="/">返回首页</a></body></html>`)
-    } else {
-        res.send(`<html><body><a href="/">请先登录</a></body></html>`)
-    }
+router.get('/spider', checkLogin, (req: Request, res: Response) => {
+    new Spider('https://www.smzdm.com/', new SmzdmAnalyzer(), DATA_PATH)
+    res.json(getJsonResponse(true))
 })
 
-router.get('/showData', (req: Request, res: Response) => {
+router.get('/showData', checkLogin, (req: Request, res: Response) => {
     try {
-        const isLogin = req.session ? req.session.login : false
-        if (isLogin) {
-            const result = fs.readFileSync(DATA_PATH, 'utf8')
-            res.send(JSON.parse(result))
-        } else {
-            res.send(`<html><body><a href="/">请先登录</a></body></html>`)
-        }
+        const result = fs.readFileSync(DATA_PATH, 'utf8')
+        res.json(getJsonResponse(JSON.parse(result)))
     } catch (e) {
-        res.send('获取数据异常，请先爬取数据')
+        res.json(getJsonResponse(false, '获取数据异常，请先爬取数据'))
     }
 })
 
