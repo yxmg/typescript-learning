@@ -5,6 +5,7 @@ import express from 'express'
 import router from "./router";
 import bodyParser from 'body-parser'
 import {Request, Response, NextFunction} from 'express'
+import cookieSession from 'cookie-session'
 
 // 无法通过extends给Request新增属性
 // interface customRequest extends Request {
@@ -20,6 +21,8 @@ app.use((req: Request, res: Response, next: NextFunction) => {
     req.author = 'yxmg'
     next()
 })
+// 处理cookie
+app.use(cookieSession({ name: 'session', keys: ['yxmg'], maxAge: 24 * 60 * 60 * 1000 /* 24 hours*/ }))
 // 封装接口router
 app.use(router)
 // 服务监听
