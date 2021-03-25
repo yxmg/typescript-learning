@@ -13,7 +13,7 @@ function simpleDecorator2(constructor: any) {
 function modifyDecorator(constructor: any) {
     console.log('modify')
     constructor.prototype.cname = '夜雪暮歌'
-    constructor.prototype.name = 'modify name'  // 无效，会被重置
+    constructor.prototype.name = 'modify name'  // 无效，修改的是原型链上的name，不影响实例上的name，仅在实例上没有name时会被查找
 }
 
 @simpleDecorator1 // 基本用法，使用@，在constructor之后执行
