@@ -53,7 +53,7 @@ class Programmer2 {
     }
 }
 
-// 高级用法2：构造函数注解
+// 高级用法2：重载构造函数
 function completeDecorator<T extends new (...args: any[]) => any>(constructor: T) {
     return class {
         // extends constructor 执行旧类constructor
