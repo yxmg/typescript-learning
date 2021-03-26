@@ -7,9 +7,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
  *Created by 夜雪暮歌 on 2021/3/22
  **/
 var express_1 = __importDefault(require("express"));
-var router_1 = __importDefault(require("./router"));
+// import router from "./router";
 var body_parser_1 = __importDefault(require("body-parser"));
 var cookie_session_1 = __importDefault(require("cookie-session"));
+require("./controller/LoginController");
+var decorator_1 = require("./controller/decorator");
 // 无法通过extends给Request新增属性
 // interface customRequest extends Request {
 //     author: string
@@ -26,7 +28,7 @@ app.use(function (req, res, next) {
 // 处理cookie
 app.use(cookie_session_1.default({ name: 'session', keys: ['yxmg'], maxAge: 24 * 60 * 60 * 1000 /* 24 hours*/ }));
 // 封装接口router
-app.use(router_1.default);
+app.use(decorator_1.router);
 // 服务监听
 app.listen(7001, function () {
     console.log('server is running');
