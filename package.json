@@ -15,7 +15,7 @@
     "namespace:require": "tsc --outFile ./session-4/build/page-require.js ./session-4/src/命名空间-require-1.ts  --module amd",
     "namespace:parcel": "yarn parcel session-4/src/test-namespace.html",
     "typedesc:parcel": "yarn parcel session-4/src/index.html",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "tsc -p ./session-7 --outDir ./session-7/dist/ && node ./session-7/dist/controller/LoginController.js"
   },
   "repository": {
     "type": "git",
@@ -53,6 +53,7 @@
     "cookie-session": "^1.4.0",
     "express": "^4.17.1",
     "jquery": "^3.6.0",
+    "reflect-metadata": "^0.1.13",
     "superagent": "^6.1.0"
   }
 }
