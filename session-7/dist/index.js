@@ -11,6 +11,7 @@ var express_1 = __importDefault(require("express"));
 var body_parser_1 = __importDefault(require("body-parser"));
 var cookie_session_1 = __importDefault(require("cookie-session"));
 require("./controller/LoginController");
+require("./controller/SpiderController");
 var decorator_1 = require("./controller/decorator");
 // 无法通过extends给Request新增属性
 // interface customRequest extends Request {

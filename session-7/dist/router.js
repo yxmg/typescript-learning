@@ -24,37 +24,6 @@ var checkLogin = function (req, res, next) {
         res.json(utils_1.getJsonResponse(false, '未授权，请先登录'));
     }
 };
-router.get('/', function (req, res) {
-    var isLogin = req.session ? req.session.login : false;
-    if (isLogin) {
-        res.send("<html><body><a href=\"/spider\">\u722C\u53D6\u6570\u636E</a><br/><a href=\"/showData\">\u5DF2\u722C\u53D6\u6570\u636E</a><br/><a href=\"/logout\">\u9000\u51FA\u767B\u5F55</a></body></html>");
-    }
-    else {
-        res.send("<html><body><form action=\"/login\" method=\"post\"><input type=\"password\" name=\"password\"><button>\u767B\u5F55</button></form></body></html>");
-    }
-});
-router.post('/login', function (req, res) {
-    var isLogin = req.session ? req.session.login : false;
-    if (isLogin) {
-        res.redirect('/');
-    }
-    else {
-        var password = req.body.password;
-        if (password === '123' && req.session) {
-            req.session.login = true;
-            res.json(utils_1.getJsonResponse(true));
-        }
-        else {
-            res.json(utils_1.getJsonResponse(false, "Wrong password by " + req.author));
-        }
-    }
-});
-router.get('/logout', function (req, res) {
-    if (req.session) {
-        req.session.login = false;
-    }
-    res.json(utils_1.getJsonResponse(true));
-});
 router.get('/spider', checkLogin, function (req, res) {
     new spider_1.default('https://www.smzdm.com/', new SmzdmAnalyzer_1.default(), DATA_PATH);
     res.json(utils_1.getJsonResponse(true));

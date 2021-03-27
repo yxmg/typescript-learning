@@ -34,6 +34,12 @@ var LoginController = /** @class */ (function () {
             }
         }
     };
+    LoginController.prototype.logout = function (req, res) {
+        if (req.session) {
+            req.session.login = false;
+        }
+        res.json(utils_1.getJsonResponse(true));
+    };
     LoginController.prototype.home = function (req, res) {
         var isLogin = req.session ? req.session.login : false;
         if (isLogin) {
@@ -44,11 +50,17 @@ var LoginController = /** @class */ (function () {
         }
     };
     __decorate([
-        decorator_1.get('/login'),
+        decorator_1.post('/login'),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", [Object, Object]),
         __metadata("design:returntype", void 0)
     ], LoginController.prototype, "login", null);
+    __decorate([
+        decorator_1.get('/logout'),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", [Object, Object]),
+        __metadata("design:returntype", void 0)
+    ], LoginController.prototype, "logout", null);
     __decorate([
         decorator_1.get('/'),
         __metadata("design:type", Function),

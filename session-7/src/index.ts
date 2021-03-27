@@ -7,6 +7,7 @@ import bodyParser from 'body-parser'
 import {Request, Response, NextFunction} from 'express'
 import cookieSession from 'cookie-session'
 import './controller/LoginController'
+import './controller/SpiderController'
 import {router} from './controller/decorator'
 
 // 无法通过extends给Request新增属性

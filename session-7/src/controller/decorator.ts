@@ -1,7 +1,7 @@
 /**
  *Created by 夜雪暮歌 on 2021/3/26
  **/
-import {Router} from 'express'
+import {Router, RequestHandler} from 'express'
 
 enum Method {
     get = 'get',
@@ -12,24 +12,34 @@ enum Method {
 
 export const router = Router()
 
-// 遍历获取path
+// 遍历收集并注册
 export function controller(constructor: any) {
     for (let key in constructor.prototype) {
         const path = Reflect.getMetadata('path', constructor.prototype, key)
         const method: Method = Reflect.getMetadata('method', constructor.prototype, key)
+        const middleware = Reflect.getMetadata('middleware', constructor.prototype, key)
         const handler = constructor.prototype[key]
+
         if (path && handler) {
-            router[method](path, handler)
+            middleware ? router[method](path, middleware, handler) : router[method](path, handler)
         }
     }
 }
 
-function getRequestByType(type: Method) {
+// 生成不同method的request
+function getRequestByType(method: Method) {
     return function (path: string) {
         return function (target: any, key: string) {
             Reflect.defineMetadata('path', path, target, key)
-            Reflect.defineMetadata('method', type, target, key)
+            Reflect.defineMetadata('method', method, target, key)
         }
+    }
+}
+
+// 注册中间件
+export function use(middleware: RequestHandler) {
+    return function (target: any, key: string) {
+        Reflect.defineMetadata('middleware', middleware, target, key)
     }
 }
 
