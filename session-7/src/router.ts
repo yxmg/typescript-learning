@@ -28,38 +28,6 @@ const checkLogin = (req: Request, res: Response, next: NextFunction) => {
     }
 }
 
-router.get('/', (req: Request, res: Response) => {
-    const isLogin = req.session ? req.session.login : false
-    if (isLogin) {
-        res.send(`<html><body><a href="/spider">爬取数据</a><br/><a href="/showData">已爬取数据</a><br/><a href="/logout">退出登录</a></body></html>`)
-    } else {
-        res.send(`<html><body><form action="/login" method="post"><input type="password" name="password"><button>登录</button></form></body></html>`)
-    }
-})
-
-router.post('/login', (req: bodyRequest, res: Response) => {
-    const isLogin = req.session ? req.session.login : false
-    if (isLogin) {
-        res.redirect('/')
-    } else {
-        const password = req.body.password
-        if (password === '123' && req.session) {
-            req.session.login = true
-            res.json(getJsonResponse(true))
-        } else {
-            res.json(getJsonResponse(false, `Wrong password by ${req.author}`))
-        }
-    }
-
-})
-
-router.get('/logout', (req: Request, res: Response) => {
-    if (req.session) {
-        req.session.login = false
-    }
-    res.json(getJsonResponse(true))
-})
-
 router.get('/spider', checkLogin, (req: Request, res: Response) => {
     new Spider('https://www.smzdm.com/', new SmzdmAnalyzer(), DATA_PATH)
     res.json(getJsonResponse(true))

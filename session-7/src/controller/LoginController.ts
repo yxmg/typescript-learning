@@ -4,7 +4,7 @@
 import 'reflect-metadata'
 import {Request, Response} from 'express'
 import {getJsonResponse} from "../utils"
-import {controller, get} from './decorator'
+import {controller, get, post} from './decorator'
 
 
 interface BodyRequest extends Request {
@@ -14,7 +14,7 @@ interface BodyRequest extends Request {
 
 @controller
 class LoginController {
-    @get('/login')
+    @post('/login')
     login(req: BodyRequest, res: Response) {
         const isLogin = req.session ? req.session.login : false
         if (isLogin) {
@@ -28,6 +28,14 @@ class LoginController {
                 res.json(getJsonResponse(false, `Wrong password by ${req.author}`))
             }
         }
+    }
+
+    @get('/logout')
+    logout(req: Request, res: Response) {
+        if (req.session) {
+            req.session.login = false
+        }
+        res.json(getJsonResponse(true))
     }
 
     @get('/')
