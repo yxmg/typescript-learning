@@ -8,7 +8,7 @@ import {NextFunction, Request, Response} from 'express'
 import {getJsonResponse} from '../utils'
 import Spider from '../spider';
 import SmzdmAnalyzer from '../SmzdmAnalyzer';
-import {get, use, controller} from './decorator'
+import {get, use, controller} from '../decorator'
 
 
 const DATA_PATH = path.resolve(__dirname, '../../data/smzdm.json')

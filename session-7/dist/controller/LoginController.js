@@ -14,7 +14,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  **/
 require("reflect-metadata");
 var utils_1 = require("../utils");
-var decorator_1 = require("./decorator");
+var decorator_1 = require("../decorator");
 var LoginController = /** @class */ (function () {
     function LoginController() {
     }

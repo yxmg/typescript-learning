@@ -21,7 +21,7 @@ require("reflect-metadata");
 var utils_1 = require("../utils");
 var spider_1 = __importDefault(require("../spider"));
 var SmzdmAnalyzer_1 = __importDefault(require("../SmzdmAnalyzer"));
-var decorator_1 = require("./decorator");
+var decorator_1 = require("../decorator");
 var DATA_PATH = path_1.default.resolve(__dirname, '../../data/smzdm.json');
 // 鉴权中间件
 var checkLogin = function (req, res, next) {

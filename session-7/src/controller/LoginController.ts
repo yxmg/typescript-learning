@@ -4,7 +4,7 @@
 import 'reflect-metadata'
 import {Request, Response} from 'express'
 import {getJsonResponse} from "../utils"
-import {controller, get, post} from './decorator'
+import {controller, get, post} from '../decorator'
 
 
 interface BodyRequest extends Request {
