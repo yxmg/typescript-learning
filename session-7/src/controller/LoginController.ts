@@ -1,7 +1,6 @@
 /**
  *Created by 夜雪暮歌 on 2021/3/26
  **/
-import 'reflect-metadata'
 import {Request, Response} from 'express'
 import {getJsonResponse} from "../utils"
 import {controller, get, post} from '../decorator'
@@ -12,11 +11,15 @@ interface BodyRequest extends Request {
 }
 
 
-@controller
+@controller()
 class LoginController {
+    static isLogin(req: Request) {
+        return !!(req.session ? req.session.login : false)
+    }
+
     @post('/login')
     login(req: BodyRequest, res: Response) {
-        const isLogin = req.session ? req.session.login : false
+        const isLogin = LoginController.isLogin(req)
         if (isLogin) {
             res.redirect('/')
         } else {
@@ -40,7 +43,7 @@ class LoginController {
 
     @get('/')
     home(req: Request, res: Response) {
-        const isLogin = req.session ? req.session.login : false
+        const isLogin = LoginController.isLogin(req)
         if (isLogin) {
             res.send(`<html><body><a href="/spider">爬取数据</a><br/><a href="/showData">已爬取数据</a><br/><a href="/logout">退出登录</a></body></html>`)
         } else {

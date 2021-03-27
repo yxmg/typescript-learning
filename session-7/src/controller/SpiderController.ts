@@ -3,11 +3,10 @@
  **/
 import fs from "fs";
 import path from 'path'
-import 'reflect-metadata'
-import {NextFunction, Request, Response} from 'express'
-import {getJsonResponse} from '../utils'
 import Spider from '../spider';
 import SmzdmAnalyzer from '../SmzdmAnalyzer';
+import {NextFunction, Request, Response} from 'express'
+import {getJsonResponse} from '../utils'
 import {get, use, controller} from '../decorator'
 
 
@@ -23,7 +22,7 @@ const checkLogin = (req: Request, res: Response, next: NextFunction) => {
     }
 }
 
-@controller
+@controller()
 class SpiderController {
     @get('/spider')
     @use(checkLogin)
