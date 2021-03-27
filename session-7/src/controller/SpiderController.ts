@@ -15,24 +15,30 @@ const DATA_PATH = path.resolve(__dirname, '../../data/smzdm.json')
 // 鉴权中间件
 const checkLogin = (req: Request, res: Response, next: NextFunction) => {
     const isLogin = req.session ? req.session.login : false
+    console.log('checkLogin')
     if (isLogin) {
         next()
     } else {
         res.json(getJsonResponse(false, '未授权，请先登录'))
     }
 }
+const testMiddleware = (req: Request, res: Response, next: NextFunction) => {
+    console.log('test middleware')
+    next()
+}
 
 @controller()
 class SpiderController {
     @get('/spider')
-    @use(checkLogin)
+    @use(checkLogin) // 先收集的后执行
+    @use(testMiddleware)
     spider(req: Request, res: Response) {
         new Spider('https://www.smzdm.com/', new SmzdmAnalyzer(), DATA_PATH)
         res.json(getJsonResponse(true))
     }
 
     @get('/showData')
-    @use(checkLogin)
+    @use([checkLogin, testMiddleware])  // 按数组顺序执行
     showData(req: Request, res: Response) {
         try {
             const result = fs.readFileSync(DATA_PATH, 'utf8')

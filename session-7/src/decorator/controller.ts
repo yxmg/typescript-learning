@@ -10,12 +10,16 @@ export function controller(root: string = '/') {
         for (let key in constructor.prototype) {
             const path = Reflect.getMetadata('path', constructor.prototype, key)
             const method: Method = Reflect.getMetadata('method', constructor.prototype, key)
-            const middleware = Reflect.getMetadata('middleware', constructor.prototype, key)
+            const middlewares = Reflect.getMetadata('middlewares', constructor.prototype, key)
             const handler = constructor.prototype[key]
 
             if (path && method) {
                 const fullPath = root === '/' ? path : `${root}${path}`
-                middleware ? router[method](fullPath, middleware, handler) : router[method](fullPath, handler)
+                if (middlewares && middlewares.length) {
+                    router[method](fullPath, ...middlewares, handler)
+                } else {
+                    router[method](fullPath, handler)
+                }
             }
         }
     }

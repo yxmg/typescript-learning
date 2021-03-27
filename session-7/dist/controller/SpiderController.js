@@ -17,21 +17,25 @@ Object.defineProperty(exports, "__esModule", { value: true });
  **/
 var fs_1 = __importDefault(require("fs"));
 var path_1 = __importDefault(require("path"));
-require("reflect-metadata");
-var utils_1 = require("../utils");
 var spider_1 = __importDefault(require("../spider"));
 var SmzdmAnalyzer_1 = __importDefault(require("../SmzdmAnalyzer"));
+var utils_1 = require("../utils");
 var decorator_1 = require("../decorator");
 var DATA_PATH = path_1.default.resolve(__dirname, '../../data/smzdm.json');
 // 鉴权中间件
 var checkLogin = function (req, res, next) {
     var isLogin = req.session ? req.session.login : false;
+    console.log('checkLogin');
     if (isLogin) {
         next();
     }
     else {
         res.json(utils_1.getJsonResponse(false, '未授权，请先登录'));
     }
+};
+var testMiddleware = function (req, res, next) {
+    console.log('test middleware');
+    next();
 };
 var SpiderController = /** @class */ (function () {
     function SpiderController() {
@@ -51,20 +55,23 @@ var SpiderController = /** @class */ (function () {
     };
     __decorate([
         decorator_1.get('/spider'),
-        decorator_1.use(checkLogin),
+        decorator_1.use(checkLogin) // 先收集的后执行
+        ,
+        decorator_1.use(testMiddleware),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", [Object, Object]),
         __metadata("design:returntype", void 0)
     ], SpiderController.prototype, "spider", null);
     __decorate([
         decorator_1.get('/showData'),
-        decorator_1.use(checkLogin),
+        decorator_1.use([checkLogin, testMiddleware]) // 按数组顺序执行
+        ,
         __metadata("design:type", Function),
         __metadata("design:paramtypes", [Object, Object]),
         __metadata("design:returntype", void 0)
     ], SpiderController.prototype, "showData", null);
     SpiderController = __decorate([
-        decorator_1.controller
+        decorator_1.controller()
     ], SpiderController);
     return SpiderController;
 }());

@@ -4,8 +4,10 @@
 import {RequestHandler} from "express";
 
 // 注册中间件
-export function use(middleware: RequestHandler) {
+export function use(middleware: RequestHandler | RequestHandler[]) {
     return function (target: any, key: string) {
-        Reflect.defineMetadata('middleware', middleware, target, key)
+        const middlewares = Reflect.getMetadata('middlewares', target, key) || []
+        Array.isArray(middleware) ? middlewares.push(...middleware) : middlewares.push(middleware)
+        Reflect.defineMetadata('middlewares', middlewares, target, key)
     }
 }

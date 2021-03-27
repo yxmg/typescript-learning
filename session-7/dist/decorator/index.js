@@ -13,6 +13,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /**
  *Created by 夜雪暮歌 on 2021/3/27
  **/
+require("reflect-metadata");
 __exportStar(require("./controller"), exports);
 __exportStar(require("./request"), exports);
 __exportStar(require("./use"), exports);
