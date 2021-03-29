@@ -30,7 +30,8 @@ var SmzdmAnalyzer = /** @class */ (function () {
             var title = $(ele).find('.feed-block-title').eq(0).text().trim();
             var price = $(ele).find('.z-highlight a').eq(0).text().trim();
             var desc = $(ele).find('.feed-block-descripe').eq(0).text().trim();
-            result.push({ title: title, imgUrl: imgUrl, url: url, price: price, desc: desc });
+            var platform = $(ele).find('.article-mall').eq(0).text().trim();
+            result.push({ title: title, imgUrl: imgUrl, url: url, price: price, desc: desc, platform: platform });
         });
         return result;
     };

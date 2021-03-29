@@ -11,7 +11,8 @@ interface Sale {
     imgUrl?: string,
     url?: string,
     price: string,
-    desc: string
+    desc: string,
+    platform: string
 }
 
 interface SpiderData {
@@ -41,7 +42,8 @@ export default class SmzdmAnalyzer implements Analyzer {
             const title = $(ele).find('.feed-block-title').eq(0).text().trim()
             const price = $(ele).find('.z-highlight a').eq(0).text().trim()
             const desc = $(ele).find('.feed-block-descripe').eq(0).text().trim()
-            result.push({ title, imgUrl, url, price, desc })
+            const platform = $(ele).find('.article-mall').eq(0).text().trim()
+            result.push({ title, imgUrl, url, price, desc, platform })
         })
         return result
     }

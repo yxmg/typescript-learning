@@ -6,10 +6,30 @@ import echarts from 'echarts'
 import ReactECharts from 'echarts-for-react'
 import './style.css'
 
+interface GoodsItem {
+    title: string,
+    imgUrl?: string,
+    url?: string,
+    price: string,
+    desc: string,
+    platform: string
+}
+
+interface Data {
+    [key: string]: GoodsItem[]
+}
+
+interface State {
+    isLogin: boolean,
+    loaded: boolean,
+    data: Data
+}
+
 export default class Home extends Component {
-    state = {
+    state: State = {
         isLogin: true,
-        loaded: false
+        loaded: false,
+        data: {}
     }
 
     handleLogout = async () => {
@@ -21,79 +41,62 @@ export default class Home extends Component {
         const { data: res } = await axios.get('/api/spider')
         if (res.success) {
             message.success('爬取成功')
+            // FIXME: 写入文件需要时间
+            setTimeout(async () => {
+                const { data: res } = await axios.get('/api/showData')
+                res.success ? this.setState({ data: res.data }) : message.error(res.errMsg)
+            }, 1000)
         } else {
             message.error(res.errMsg)
         }
     }
 
     getOption = (): echarts.EChartsOption => {
+        const { data } = this.state
+        const platforms: string[] = []
+        const times: string[] = []
+        const tempData: { [key: string]: number[] } = {}
+        const series: echarts.SeriesOption[] = []
+        let index = 0
+        for (let time in data) {
+            times.push(time)
+            const goodsList = data[time]
+            goodsList.forEach((innerItem) => {
+                if (!innerItem.platform) {
+                    return
+                }
+                if (!platforms.includes(innerItem.platform)) {
+                    platforms.push(innerItem.platform)
+                    tempData[innerItem.platform] = [1]
+                }
+
+                tempData[innerItem.platform][index]
+                    ? tempData[innerItem.platform][index]++
+                    : (tempData[innerItem.platform][index] = 1)
+
+            })
+            index++
+        }
+        for (let key in tempData) {
+            series.push({ name: key, type: 'line', data: tempData[key].filter(Boolean) })
+        }
         return {
-            title: {
-                text: '折线图堆叠'
-            },
-            tooltip: {
-                trigger: 'axis'
-            },
-            legend: {
-                data: ['邮件营销', '联盟广告', '视频广告', '直接访问', '搜索引擎']
-            },
-            grid: {
-                left: '3%',
-                right: '4%',
-                bottom: '3%',
-                containLabel: true
-            },
-            toolbox: {
-                feature: {
-                    saveAsImage: {}
-                }
-            },
-            xAxis: {
-                type: 'category',
-                boundaryGap: false,
-                data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
-            },
-            yAxis: {
-                type: 'value'
-            },
-            series: [
-                {
-                    name: '邮件营销',
-                    type: 'line',
-                    stack: '总量',
-                    data: [120, 132, 101, 134, 90, 230, 210]
-                },
-                {
-                    name: '联盟广告',
-                    type: 'line',
-                    stack: '总量',
-                    data: [220, 182, 191, 234, 290, 330, 310]
-                },
-                {
-                    name: '视频广告',
-                    type: 'line',
-                    stack: '总量',
-                    data: [150, 232, 201, 154, 190, 330, 410]
-                },
-                {
-                    name: '直接访问',
-                    type: 'line',
-                    stack: '总量',
-                    data: [320, 332, 301, 334, 390, 330, 320]
-                },
-                {
-                    name: '搜索引擎',
-                    type: 'line',
-                    stack: '总量',
-                    data: [820, 932, 901, 934, 1290, 1330, 1320]
-                }
-            ]
+            title: { text: '什么值得买首页平台统计' },
+            tooltip: { trigger: 'axis' },
+            legend: { data: platforms },
+            grid: { left: '3%', right: '4%', bottom: '3%', containLabel: true },
+            toolbox: { feature: { saveAsImage: {} } },
+            xAxis: { type: 'category', boundaryGap: false, data: times },
+            yAxis: { type: 'value' },
+            series: series
         }
     }
 
     async componentDidMount() {
         const { data: res } = await axios.get('/api/isLogin')
-        this.setState({ isLogin: res?.data, loaded: true })
+        this.setState({ isLogin: res?.data })
+        const { data: dataRes } = await axios.get('/api/showData')
+        res.success ? this.setState({ data: dataRes.data, loaded: true }) : message.error(dataRes.errMsg)
     }
 
     render() {
