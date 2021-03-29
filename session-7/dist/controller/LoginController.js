@@ -24,18 +24,16 @@ var LoginController = /** @class */ (function () {
     };
     LoginController.prototype.login = function (req, res) {
         var isLogin = LoginController_1.isLogin(req);
+        var password = req.body.password;
         if (isLogin) {
-            res.redirect('/');
+            res.json(utils_1.getJsonResponse(true));
+        }
+        else if (password === '123' && req.session) {
+            req.session.login = true;
+            res.json(utils_1.getJsonResponse(true));
         }
         else {
-            var password = req.body.password;
-            if (password === '123' && req.session) {
-                req.session.login = true;
-                res.json(utils_1.getJsonResponse(true));
-            }
-            else {
-                res.json(utils_1.getJsonResponse(false, "Wrong password by " + req.author));
-            }
+            res.json(utils_1.getJsonResponse(false, "Wrong password by " + req.author));
         }
     };
     LoginController.prototype.logout = function (req, res) {
@@ -44,18 +42,9 @@ var LoginController = /** @class */ (function () {
         }
         res.json(utils_1.getJsonResponse(true));
     };
-    LoginController.prototype.home = function (req, res) {
-        var isLogin = LoginController_1.isLogin(req);
-        if (isLogin) {
-            res.send("<html><body><a href=\"/spider\">\u722C\u53D6\u6570\u636E</a><br/><a href=\"/showData\">\u5DF2\u722C\u53D6\u6570\u636E</a><br/><a href=\"/logout\">\u9000\u51FA\u767B\u5F55</a></body></html>");
-        }
-        else {
-            res.send("<html><body><form action=\"/login\" method=\"post\"><input type=\"password\" name=\"password\"><button>\u767B\u5F55</button></form></body></html>");
-        }
-    };
     var LoginController_1;
     __decorate([
-        decorator_1.get('/api/isLogin'),
+        decorator_1.get('/isLogin'),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", [Object, Object]),
         __metadata("design:returntype", void 0)
@@ -72,14 +61,8 @@ var LoginController = /** @class */ (function () {
         __metadata("design:paramtypes", [Object, Object]),
         __metadata("design:returntype", void 0)
     ], LoginController.prototype, "logout", null);
-    __decorate([
-        decorator_1.get('/'),
-        __metadata("design:type", Function),
-        __metadata("design:paramtypes", [Object, Object]),
-        __metadata("design:returntype", void 0)
-    ], LoginController.prototype, "home", null);
     LoginController = LoginController_1 = __decorate([
-        decorator_1.controller()
+        decorator_1.controller('/api')
     ], LoginController);
     return LoginController;
 }());

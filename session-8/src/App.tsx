@@ -1,6 +1,6 @@
 import React from 'react';
-import Login from './views/login/login'
-import Home from './views/home/home'
+import Login from './views/login/index'
+import Home from './views/home/index'
 import {HashRouter, Switch, Route} from 'react-router-dom'
 
 function App() {

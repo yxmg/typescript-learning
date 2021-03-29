@@ -11,13 +11,13 @@ interface BodyRequest extends Request {
 }
 
 
-@controller()
+@controller('/api')
 class LoginController {
     static isLogin(req: Request) {
         return !!(req.session ? req.session.login : false)
     }
 
-    @get('/api/isLogin')
+    @get('/isLogin')
     isLogin(req: Request, res: Response) {
         const isLogin = LoginController.isLogin(req)
         res.json(getJsonResponse(isLogin))
@@ -26,16 +26,14 @@ class LoginController {
     @post('/login')
     login(req: BodyRequest, res: Response) {
         const isLogin = LoginController.isLogin(req)
+        const password = req.body.password
         if (isLogin) {
-            res.redirect('/')
+            res.json(getJsonResponse(true))
+        } else if (password === '123' && req.session) {
+            req.session.login = true
+            res.json(getJsonResponse(true))
         } else {
-            const password = req.body.password
-            if (password === '123' && req.session) {
-                req.session.login = true
-                res.json(getJsonResponse(true))
-            } else {
-                res.json(getJsonResponse(false, `Wrong password by ${req.author}`))
-            }
+            res.json(getJsonResponse(false, `Wrong password by ${req.author}`))
         }
     }
 
@@ -45,15 +43,5 @@ class LoginController {
             req.session.login = false
         }
         res.json(getJsonResponse(true))
-    }
-
-    @get('/')
-    home(req: Request, res: Response) {
-        const isLogin = LoginController.isLogin(req)
-        if (isLogin) {
-            res.send(`<html><body><a href="/spider">爬取数据</a><br/><a href="/showData">已爬取数据</a><br/><a href="/logout">退出登录</a></body></html>`)
-        } else {
-            res.send(`<html><body><form action="/login" method="post"><input type="password" name="password"><button>登录</button></form></body></html>`)
-        }
     }
 }
