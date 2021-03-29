@@ -17,6 +17,12 @@ class LoginController {
         return !!(req.session ? req.session.login : false)
     }
 
+    @get('/api/isLogin')
+    isLogin(req: Request, res: Response) {
+        const isLogin = LoginController.isLogin(req)
+        res.json(getJsonResponse(isLogin))
+    }
+
     @post('/login')
     login(req: BodyRequest, res: Response) {
         const isLogin = LoginController.isLogin(req)
