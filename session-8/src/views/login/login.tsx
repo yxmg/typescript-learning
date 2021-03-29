@@ -1,7 +1,7 @@
 /**
  *Created by 夜雪暮歌 on 2021/3/28
  **/
-import './login.css'
+import './style.css'
 
 import {Form, Input, Button} from 'antd';
 import {LockOutlined} from '@ant-design/icons';

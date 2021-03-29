@@ -1,14 +1,14 @@
 import React from 'react';
-import Login from './views/login'
-import {HashRouter, Switch, Route, Redirect} from 'react-router-dom'
+import Login from './views/login/login'
+import Index from './views/home/home'
+import {HashRouter, Switch, Route} from 'react-router-dom'
 
 function App() {
     return (
         <HashRouter>
             <Switch>
+                <Route path='/' exact component={Index}/>
                 <Route path='/login' exact component={Login}/>
-                {/* redirect 需要放下面=-= */}
-                <Redirect from="/" to="/login"/>
             </Switch>
         </HashRouter>
     );
