@@ -27,7 +27,7 @@ const testMiddleware = (req: Request, res: Response, next: NextFunction) => {
     next()
 }
 
-@controller()
+@controller('/api')
 class SpiderController {
     @get('/spider')
     @use(checkLogin) // 先收集的后执行

@@ -1,8 +1,11 @@
 .page-home {
+}
+
+.button-group {
   width: 300px;
   padding: 20px;
   border: 1px solid #ccc;
-  margin: 0 auto;
+  margin: 0 auto 30px;
   text-align: center;
 }
 

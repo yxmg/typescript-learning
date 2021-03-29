@@ -71,7 +71,7 @@ var SpiderController = /** @class */ (function () {
         __metadata("design:returntype", void 0)
     ], SpiderController.prototype, "showData", null);
     SpiderController = __decorate([
-        decorator_1.controller()
+        decorator_1.controller('/api')
     ], SpiderController);
     return SpiderController;
 }());
