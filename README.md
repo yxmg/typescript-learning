@@ -2,6 +2,10 @@
 
 Typescript learning note
 
+🔺 [TS学习收获总结](http://note.youdao.com/noteshare?id=9bfe4952b9ab8d33e48a526afde02ae4&sub=B1CABCC5C8424874BA6A31518B59CD44)
+
+![](https://ae01.alicdn.com/kf/U98aa3cf7614146a6ace78c0f729957d20.jpg)
+
 ## 目录
 
 ### Session-2
@@ -36,3 +40,24 @@ Typescript learning note
 
 ### Session-5
 
++ Express实现爬虫
+
+### Session-6
+
++ [参数装饰器.ts](./session-6/参数装饰器.ts)
++ [属性装饰器.ts](./session-6/属性装饰器.ts)
++ [方法装饰器.ts](./session-6/方法装饰器.ts)
++ [类装饰器.ts](./session-6/类装饰器.ts)
++ [装饰器复用TryCatch.ts](./session-6/装饰器复用TryCatch.ts)
++ [访问器装饰器.ts](./session-6/访问器装饰器.ts)
+
+### Session-7
+
++ 基于装饰器和Reflect优化Express（AOP）
+
+### Session-8
+
++ React实现前端页面
++ 完整效果请运行
+    + 后端：`yarn interface`
+    + 前端：`cd ./session-8 && yarn start`
